@@ -1,0 +1,246 @@
+@import 'tailwindcss';
+
+/* ===========================================================
+   Bean & Brew Café — Theme System
+   Colors: coffee brown, cream, beige, dark green
+   Font: Poppins (Google Fonts via index.html)
+   =========================================================== */
+
+@theme {
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  /* Coffee brown ramp */
+  --color-coffee-50: #faf6f2;
+  --color-coffee-100: #f2e8df;
+  --color-coffee-200: #e4d0bf;
+  --color-coffee-300: #d0b094;
+  --color-coffee-400: #b88a66;
+  --color-coffee-500: #9c6b44;
+  --color-coffee-600: #7e5230;
+  --color-coffee-700: #5e3d24;
+  --color-coffee-800: #42291a;
+  --color-coffee-900: #2a1a10;
+
+  /* Cream / beige ramp */
+  --color-cream-50: #fdfbf7;
+  --color-cream-100: #f9f4ea;
+  --color-cream-200: #f1e7d3;
+  --color-cream-300: #e6d6b8;
+  --color-cream-400: #d4be96;
+
+  /* Dark green ramp */
+  --color-forest-50: #f0f6f2;
+  --color-forest-100: #d9e8de;
+  --color-forest-200: #b3d1bd;
+  --color-forest-300: #84b394;
+  --color-forest-400: #56946c;
+  --color-forest-500: #387049;
+  --color-forest-600: #285738;
+  --color-forest-700: #1f4530;
+  --color-forest-800: #173526;
+  --color-forest-900: #0f2418;
+
+  /* Accent — caramel */
+  --color-caramel-400: #e0a86b;
+  --color-caramel-500: #d4914a;
+  --color-caramel-600: #b8772e;
+
+  /* Semantic */
+  --color-success: #387049;
+  --color-warning: #d4914a;
+  --color-error: #c0463a;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+/* Dark mode: driven by `.dark` on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #fdfbf7;
+  --bg-alt: #f9f4ea;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-solid: #ffffff;
+  --text: #2a1a10;
+  --text-muted: #6b5648;
+  --border: rgba(94, 61, 36, 0.12);
+  --shadow: 0 8px 32px rgba(42, 26, 16, 0.10);
+  --shadow-lg: 0 20px 60px rgba(42, 26, 16, 0.16);
+  --glass-border: rgba(255, 255, 255, 0.5);
+}
+
+.dark {
+  --bg: #14110d;
+  --bg-alt: #1c1813;
+  --surface: rgba(42, 26, 16, 0.55);
+  --surface-solid: #221a13;
+  --text: #f4ece2;
+  --text-muted: #b8a892;
+  --border: rgba(244, 236, 226, 0.10);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.45);
+  --glass-border: rgba(244, 236, 226, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Utility helpers ---------- */
+@layer utilities {
+  .text-muted { color: var(--text-muted); }
+  .bg-app { background: var(--bg); }
+  .bg-app-alt { background: var(--bg-alt); }
+  .border-app { border-color: var(--border); }
+
+  .glass {
+    background: var(--surface);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+  }
+  .glass-solid {
+    background: var(--surface-solid);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .heading {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .text-balance { text-wrap: balance; }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Keyframe animations ---------- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes steam {
+  0% { opacity: 0; transform: translateY(0) scaleX(1); }
+  15% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-40px) scaleX(1.6); }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-fade-in { animation: fadeIn 0.6s ease both; }
+.animate-scale-in { animation: scaleIn 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-slide-in-right { animation: slideInRight 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-slide-up { animation: slideUp 0.35s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* ---------- Loader ---------- */
+.loader-ring {
+  width: 64px;
+  height: 64px;
+  border: 4px solid var(--border);
+  border-top-color: var(--color-coffee-500);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+/* ---------- Masonry gallery ---------- */
+.masonry {
+  column-gap: 1rem;
+  columns: 1;
+}
+@media (min-width: 640px) { .masonry { columns: 2; } }
+@media (min-width: 1024px) { .masonry { columns: 3; } }
+.masonry > * {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Custom scrollbar ---------- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-alt); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-coffee-400);
+  border-radius: 999px;
+  border: 2px solid var(--bg-alt);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-coffee-500); }
+
+/* ---------- Selection ---------- */
+::selection {
+  background: var(--color-coffee-500);
+  color: #fff;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
